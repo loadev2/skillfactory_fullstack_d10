@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
- 
+
+{% block filter %}
+<form action="" method="GET">
+     {% csrf_token %}
+      {{ form }}
+    <input type="submit" value="Search">
+</form>
+{% endblock %}
+
 {% block content %}
    <div class="container">
-       <div class="row">
-           <div class="col">
-               <form action="" method="GET">
-                    {% csrf_token %}
-                    {{ form }}
-                    <input type="submit" value="Search">
-                </form>
-           </div>
-       </div>
        <div class="row d-flex justify-content-around">
           {% for car in cars %}
             <div class="card mt-2" style="width: 18rem;">
@@ -19,7 +18,8 @@
               <div class="card-body">
                 <h5 class="card-title">{{car.model}}</h5>
                 <p class="card-text">Year: {{car.release_year}}</p>
-                <p class="card-text">Transmission: {{car.transmission}}</p>
+                {% load transmission_tags %}
+                <p class="card-text">Transmission: {{car.transmission|trans_name}}</p>
                 <p class="card-text">Color: {{car.color}}</p>
                 <a href="#" class="btn btn-info">Rent...</a>
               </div>

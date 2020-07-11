@@ -8,7 +8,18 @@
 </head>
 <body>
 <header>
-    <img class="ml-4" src='{% static "logo.svg" %}' height="50px" /> Cars Rent
+  <div class="container">
+       <div class="row">
+           <div class="col-6">
+                <img class="ml-4" src='{% static "logo.svg" %}' height="50px" /> Cars Rent
+           </div>
+           <div class="col-6 pt-2 d-flex justify-content-end">
+                {% block filter %}
+                {% endblock %}
+           </div>
+       </div>
+
+
 </header>
 <main>
     {% block content %}

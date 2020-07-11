@@ -1,4 +1,4 @@
 from django import forms
 
 class FormFilter(forms.Form):
-    searchText = forms.CharField(label="Search", max_length=30)
+    searchText = forms.CharField(label="", max_length=30)

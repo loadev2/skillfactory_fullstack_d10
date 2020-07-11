@@ -15,12 +15,17 @@ def index(request):
     # if this is a POST request we need to process the form data
     if request.method == 'GET':
         param = request.GET.get('searchText')
+        query_list = str(param).split()
+        query_list_num = [int(x) for x in query_list if x.isdigit()]
+        query_list.append(param) # for cases like Model X
+        query_list_trans = [x[0] for x in Car.TRANS_TYPE if x[1] in query_list]
 
-        #val = request.GET.get('searchText')
-        #val = 'Black'
-        #cars = Car.objects.filter(color__containes=val)
         if param:
-            cars = Car.objects.filter(Q(release_year=param))
+            cars = Car.objects.filter(Q(release_year__in=query_list_num) |
+                                      Q(color__in=query_list) |
+                                      Q(model__title__in=query_list) |
+                                      Q(model__brand__title__in=query_list) |
+                                      Q(transmission__in=query_list_trans))
         else:
             cars = Car.objects.all()
     else:
